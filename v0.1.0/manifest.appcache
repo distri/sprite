@@ -1,0 +1,11 @@
+CACHE MANIFEST
+# 1385325884439
+
+CACHE:
+index.html
+
+
+NETWORK:
+https://*
+http://*
+*
