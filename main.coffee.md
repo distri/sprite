@@ -87,7 +87,8 @@ image is loaded. The sprite proxy data is passed to it as the only parameter.
 
     Sprite.fromURL = Sprite.load = (url, loadedCallback) ->
       if sprite = spriteCache[url]
-        loadedCallback?.defer(sprite)
+        if loadedCallback?
+          defer loadedCallback, sprite
 
         return sprite
 
@@ -95,7 +96,7 @@ image is loaded. The sprite proxy data is passed to it as the only parameter.
       img = new Image()
 
       img.onload = ->
-        Object.extend(proxy, Sprite(this))
+        extend(proxy, Sprite(this))
 
         loadedCallback?(proxy)
 
@@ -108,3 +109,16 @@ A sprite that draws nothing.
     Sprite.EMPTY = Sprite.NONE = LoaderProxy()
 
     module.exports = Sprite
+
+Helpers
+-------
+
+    extend = (target, sources...) ->
+      for source in sources
+        for name of source
+          target[name] = source[name]
+
+    defer = (fn, args...) ->
+      setTimeout ->
+        fn(args...)
+      , 1
