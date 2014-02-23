@@ -118,6 +118,8 @@ Helpers
         for name of source
           target[name] = source[name]
 
+      return target
+
     defer = (fn, args...) ->
       setTimeout ->
         fn(args...)
